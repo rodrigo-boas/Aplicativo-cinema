@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -38,22 +40,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 import com.example.a04.BuildConfig;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView txtFilme;
-    private String chaveApi = BuildConfig.TMDB_API_KEY;
-    private String idioma = "pt-BR";
-    private SearchView seaPesquisar;
-    private FilmeApi api;
-    private Retrofit retrofit;
-    private ProgressBar progress_bar;
-
-    // VARIÁVEIS DA API
-    private String descricao;
-    private String titulo;
-    private ImageView imgPoster;
+    private BottomNavigationView navegacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,73 +59,33 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        txtFilme = findViewById(R.id.txtFilme);
-        seaPesquisar = findViewById(R.id.seaPesquisar);
-        progress_bar = findViewById(R.id.progress_bar);
-        imgPoster = findViewById(R.id.imgPoster);
+        navegacao = findViewById(R.id.navegacao);
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        navegacao.setSelectedItemId(R.id.acaoDescobrir);
 
-        api = retrofit.create(FilmeApi.class);
-
-        seaPesquisar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        navegacao.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                pesquisarFilmes();
-                progress_bar.setVisibility(View.VISIBLE);
-                return true;
-            }
-        });
-    }
+                Fragment fragment_selecionado = null;
 
-    private void pesquisarFilmes() {
-        String nomeFilme = seaPesquisar.getQuery().toString();
-        Call<Results> chamada = api.buscarFilme(chaveApi, idioma, nomeFilme);
+                int id = menuItem.getItemId();
 
-        chamada.enqueue(new Callback<Results>() {
-            @Override
-            public void onResponse(Call<Results> call, Response<Results> response) {
-                txtFilme.setVisibility(View.GONE);
-                if (response.isSuccessful() && response.body() != null) {
-                    Filme filmeEncontrado = response.body().getResultados().get(0);
-                    titulo = filmeEncontrado.getTitulo();
-                    descricao = filmeEncontrado.getDescricao();
-                    String url_imagem = "https://image.tmdb.org/t/p/w500" + filmeEncontrado.getPoster();
-
-                    Glide.with(MainActivity.this).load(url_imagem).centerCrop().listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, @Nullable Object model
-                                , @NonNull Target<Drawable> target, boolean isFirstResource) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(@NonNull Drawable resource, @NonNull Object model
-                                , Target<Drawable> target, @NonNull DataSource dataSource, boolean isFirstResource) {
-                            progress_bar.setVisibility(View.GONE);
-                            txtFilme.setText(titulo + ": " + descricao);
-                            imgPoster.setVisibility(View.VISIBLE);
-                            txtFilme.setVisibility(View.VISIBLE);
-                            return false;
-                        }
-                    }).into(imgPoster);
+                if (id == R.id.acaoLista) {
+                    fragment_selecionado = new Lista_fragment();
+                } else if (id == R.id.acaoDescobrir) {
+                    fragment_selecionado = new Descobrir_fragment();
+                } else {
+                    fragment_selecionado = new Pesquisar_fragment();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Results> call, Throwable t) {
-                txtFilme.setText("Filme não encontrado");
-                progress_bar.setVisibility(View.GONE);
-                txtFilme.setVisibility(View.VISIBLE);
-                imgPoster.setVisibility(View.GONE);
+                if(fragment_selecionado != null) {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container , fragment_selecionado)
+                            .commit();
+                }
+
+                return true;
             }
         });
     }
@@ -146,5 +100,4 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         trocarTela(TelaLogin.class);
     }
-
 }

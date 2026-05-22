@@ -2,9 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="red">#FF4242</color>
+    <color name="red">#FF2121</color>
     <color name="red_white">#FFA0A0</color>
     <color name="blue">#87CEEB</color>
     <color name="midnight_blue">#191970</color>
     <color name="naval_blue">#000080</color>
+    <color name="gold">#FFEB3B</color>
+    <style name="selected_color" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/red_white</item>
+    </style>
 </resources>

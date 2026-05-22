@@ -44,7 +44,7 @@ public class TelaLogin extends AppCompatActivity {
         });
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            trocarTela(MainActivity.class);
+            trocarTela(MainActivity.class, true);
         }
 
         edtEmail = findViewById(R.id.edtEmail);
@@ -57,7 +57,7 @@ public class TelaLogin extends AppCompatActivity {
         });
 
         txtCadastrar.setOnClickListener(v -> {
-            trocarTela(TelaCadastro.class);
+            trocarTela(TelaCadastro.class, false);
         });
     }
 
@@ -84,7 +84,7 @@ public class TelaLogin extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Snackbar snac = Snackbar.make(v, "Login realizado", Snackbar.LENGTH_SHORT);
                             snac.setTextColor(Color.BLACK).setBackgroundTint(Color.WHITE).show();
-                            trocarTela(MainActivity.class);
+                            trocarTela(MainActivity.class, true);
                         } else {
                             String erro;
 
@@ -105,10 +105,10 @@ public class TelaLogin extends AppCompatActivity {
                 });
     }
 
-    private void trocarTela(Class novaTela) {
+    private void trocarTela(Class novaTela, boolean finish) {
         Intent i = new Intent(getApplicationContext(), novaTela);
         startActivity(i);
-        finish();
+        if (finish) finish();
     }
 
 }
