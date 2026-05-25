@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (id == R.id.acaoPesquisar){
                     fragment_selecionado = new Pesquisar_fragment();
                 } else {
-
+                    fragment_selecionado = new Recomendados_fragment();
                 }
 
                 if(fragment_selecionado != null) {

@@ -5,41 +5,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#F8F8F8">
 
     <TextView
-        android:id="@+id/text_favorites_title"
+        android:id="@+id/text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:text="Meus Favoritos"
+        android:text="Recomendados"
         android:textColor="#000000"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/text_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filmes com base no seu gosto"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/text_title"
+        app:layout_constraintTop_toBottomOf="@+id/text_title" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_favorites"
+        android:id="@+id/recycler_recommendations"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:paddingHorizontal="16dp"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_favorites_title"
-        tools:listitem="@layout/card_historico" />
-
-    <TextView
-        android:id="@+id/text_empty_favorites"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sua lista de desejos está vazia"
-        android:textColor="#888888"
-        android:textSize="16sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_favorites_title" />
+        app:layout_constraintTop_toBottomOf="@+id/text_subtitle"
+        tools:listitem="@layout/filme_grid" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

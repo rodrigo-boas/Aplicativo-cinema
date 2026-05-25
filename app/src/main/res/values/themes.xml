@@ -6,4 +6,9 @@
     </style>
 
     <style name="Theme._04" parent="Base.Theme._04" />
+
+    <style name="RoundedCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
 </resources>
