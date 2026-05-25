@@ -1,47 +1,21 @@
 package com.example.a04;
 
-import static android.view.View.VISIBLE;
-
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.SearchView;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.example.a04.api.Filme;
-import com.example.a04.api.FilmeApi;
-import com.example.a04.api.Results;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import com.example.a04.BuildConfig;
+import com.example.a04.fragments.Descobrir_fragment;
+import com.example.a04.fragments.Favorito_fragment;
+import com.example.a04.fragments.Pesquisar_fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,10 +33,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         navegacao = findViewById(R.id.navegacao);
-
-        navegacao.setSelectedItemId(R.id.acaoDescobrir);
-
         navegacao.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -72,11 +44,13 @@ public class MainActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
 
                 if (id == R.id.acaoLista) {
-                    fragment_selecionado = new Lista_fragment();
+                    fragment_selecionado = new Favorito_fragment();
                 } else if (id == R.id.acaoDescobrir) {
                     fragment_selecionado = new Descobrir_fragment();
-                } else {
+                } else if (id == R.id.acaoPesquisar){
                     fragment_selecionado = new Pesquisar_fragment();
+                } else {
+
                 }
 
                 if(fragment_selecionado != null) {
@@ -88,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        if (savedInstanceState == null) {
+            navegacao.setSelectedItemId(R.id.acaoDescobrir);
+        }
+
     }
 
     private void trocarTela(Class novaTela) {
