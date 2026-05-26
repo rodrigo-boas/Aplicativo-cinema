@@ -30,6 +30,8 @@ public interface FilmeApi {
             @Query("language")
             String idioma,
             @Query("with_genres")
-            int... generos
+            String generos,
+            @Query("page")
+            int pagina
     );
 }

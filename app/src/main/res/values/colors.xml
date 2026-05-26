@@ -8,6 +8,7 @@
     <color name="midnight_blue">#191970</color>
     <color name="naval_blue">#000080</color>
     <color name="gold">#FFEB3B</color>
+    <color name="gray">#838383</color>
     <style name="selected_color" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/red_white</item>
     </style>

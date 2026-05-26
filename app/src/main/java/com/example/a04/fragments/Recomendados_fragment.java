@@ -1,4 +1,4 @@
-package com.example.a04;
+package com.example.a04.fragments;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.a04.R;
 
 public class Recomendados_fragment extends Fragment {
 

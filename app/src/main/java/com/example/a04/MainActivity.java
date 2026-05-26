@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.a04.fragments.Descobrir_fragment;
 import com.example.a04.fragments.Favorito_fragment;
 import com.example.a04.fragments.Pesquisar_fragment;
+import com.example.a04.fragments.Recomendados_fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
