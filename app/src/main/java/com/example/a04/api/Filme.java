@@ -91,4 +91,24 @@ public class Filme {
     public double getAvaliacao() {
         return avaliacao;
     }
+
+    public void setFilme_id(int filme_id) {
+        this.filme_id = filme_id;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public void setData_lancamento(String data_lancamento) {
+        this.data_lancamento = data_lancamento;
+    }
 }

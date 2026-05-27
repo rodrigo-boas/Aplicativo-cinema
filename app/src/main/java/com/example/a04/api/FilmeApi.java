@@ -2,6 +2,7 @@ package com.example.a04.api;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface FilmeApi {
@@ -33,5 +34,15 @@ public interface FilmeApi {
             String generos,
             @Query("page")
             int pagina
+    );
+
+    @GET("movie/{movie_id}")
+    Call<Filme> buscarPorId(
+            @Path("movie_id")
+            int id,
+            @Query("api_key")
+            String chaveApi,
+            @Query("language")
+            String idioma
     );
 }

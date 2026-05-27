@@ -43,8 +43,6 @@ public class Recomendados_fragment extends Fragment {
 
     private ArrayList<Filme> filmes;
     private AdapterRecomendados adapter;
-    private TextView text_title;
-    private TextView text_subtitle;
     private RecyclerView recycler_recommendations;
 
     private boolean carregando = false;
@@ -66,10 +64,8 @@ public class Recomendados_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fragment_recomendados, container, false);
+        View view = inflater.inflate(R.layout.fragment_recomendados, container, false);
 
-        text_title = view.findViewById(R.id.text_title);
-        text_subtitle = view.findViewById(R.id.text_subtitle);
         recycler_recommendations = view.findViewById(R.id.recycler_recommendations);
 
         retrofit = new Retrofit.Builder()
@@ -90,14 +86,14 @@ public class Recomendados_fragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if(dy > 0 && layoutManager instanceof GridLayoutManager) {
+                if (dy > 0 && layoutManager instanceof GridLayoutManager) {
                     GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
 
                     int visiveis = gridLayoutManager.getChildCount();
                     int totais = gridLayoutManager.getItemCount();
                     int primeiroVisivel = gridLayoutManager.findFirstVisibleItemPosition();
 
-                    if(!carregando && (visiveis + primeiroVisivel) >= totais - 4 && usuarioTemGeneros && paginaAtual < 500) {
+                    if (!carregando && (visiveis + primeiroVisivel) >= totais - 4 && usuarioTemGeneros && paginaAtual < 500) {
                         carregando = true;
                         paginaAtual++;
                         procurarFilmes(generosSalvos);

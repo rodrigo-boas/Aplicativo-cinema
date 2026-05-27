@@ -1,7 +1,11 @@
 package com.example.a04;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +48,12 @@ public class TelaLogin extends AppCompatActivity {
         });
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            trocarTela(MainActivity.class, true);
+            if (temInternet()) {
+                trocarTela(MainActivity.class, true);
+            } else {
+                Snackbar snac = Snackbar.make(findViewById(R.id.main), "Sem conexão com a internet para entrar!", Snackbar.LENGTH_LONG);
+                snac.setTextColor(Color.BLACK).setBackgroundTint(Color.WHITE).show();
+            }
         }
 
         edtEmail = findViewById(R.id.edtEmail);
@@ -109,6 +118,20 @@ public class TelaLogin extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), novaTela);
         startActivity(i);
         if (finish) finish();
+    }
+
+    private boolean temInternet() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm != null) {
+            Network network = cm.getActiveNetwork();
+            if (network != null) {
+                NetworkCapabilities nc = cm.getNetworkCapabilities(network);
+                return nc != null &&
+                        (nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                                nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR));
+            }
+        }
+        return false;
     }
 
 }

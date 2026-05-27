@@ -141,7 +141,10 @@ public class Descobrir_fragment extends Fragment implements CardStackListener {
 
     private void checarGeneros() {
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-        if (usuario == null) return;
+        if (usuario == null)  {
+            procurarFilmes();
+            return;
+        }
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -163,6 +166,8 @@ public class Descobrir_fragment extends Fragment implements CardStackListener {
                         }
                         procurarFilmes(idsGostados);
                     }
+                }).addOnFailureListener(e -> {
+                    procurarFilmes();
                 });
     }
 
@@ -172,16 +177,16 @@ public class Descobrir_fragment extends Fragment implements CardStackListener {
         chamada.enqueue(new Callback<Results>() {
             @Override
             public void onResponse(Call<Results> call, Response<Results> response) {
+                progress.setVisibility(View.GONE);
                 if (response.isSuccessful() && response.body() != null) {
                     filmes.addAll(response.body().getResultados());
                     adapter.notifyDataSetChanged();
-                    progress.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<Results> call, Throwable t) {
-
+                progress.setVisibility(View.GONE);
             }
         });
     }
@@ -252,6 +257,29 @@ public class Descobrir_fragment extends Fragment implements CardStackListener {
                 });
     }
 
+    private void salvarFavorito(Filme SalvarFilme) {
+        FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+        if (usuario == null) return;
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> filmeMap = new HashMap<>();
+        filmeMap.put("id", SalvarFilme.getFilme_id());
+        filmeMap.put("titulo", SalvarFilme.getTitulo());
+        filmeMap.put("data", SalvarFilme.getData_lancamento());
+        filmeMap.put("descricao", SalvarFilme.getDescricao());
+        filmeMap.put("poster", SalvarFilme.getPoster());
+
+        Map<String, Object> dados = new HashMap<>();
+        dados.put("lista", FieldValue.arrayUnion(filmeMap));
+
+        db.collection("Usuários")
+                .document(usuario.getUid())
+                .collection("favoritos")
+                .document("filmes")
+                .set(dados, SetOptions.merge());
+    }
+
     private void deslizarCard(Direction direction) {
         SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder()
                 .setDirection(direction)
@@ -286,6 +314,7 @@ public class Descobrir_fragment extends Fragment implements CardStackListener {
             } else if (direction == Direction.Top) {
                 atualizarGostos(idsGeneros, 5);
                 salvarHistorico(filmeAtual.getFilme_id());
+                salvarFavorito(filmeAtual);
             }
         }
 
