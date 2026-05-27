@@ -60,7 +60,6 @@ public class Descobrir_fragment extends Fragment implements CardStackListener {
     private int filmesAvaliados = 0;
     private ArrayList<Filme> filmes;
     private AdapterDescobrir adapter;
-    private Button btlogout;
 
     //VARIÁVEIS API
 
@@ -94,7 +93,6 @@ public class Descobrir_fragment extends Fragment implements CardStackListener {
         checarHistorico();
 
         progress = view.findViewById(R.id.progress);
-        btlogout = view.findViewById(R.id.btlogout);
         cardStackView = view.findViewById(R.id.card_stack_view);
         textRatedCount = view.findViewById(R.id.text_rated_count);
         ImageButton button_dislike = view.findViewById(R.id.button_dislike);
