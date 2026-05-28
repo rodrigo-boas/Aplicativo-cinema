@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.a04.fragments.Descobrir_fragment;
 import com.example.a04.fragments.Favorito_fragment;
-import com.example.a04.fragments.Pesquisar_fragment;
 import com.example.a04.fragments.Recomendados_fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -48,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
                     fragment_selecionado = new Favorito_fragment();
                 } else if (id == R.id.acaoDescobrir) {
                     fragment_selecionado = new Descobrir_fragment();
-                } else if (id == R.id.acaoPesquisar){
-                    fragment_selecionado = new Pesquisar_fragment();
                 } else {
                     fragment_selecionado = new Recomendados_fragment();
                 }

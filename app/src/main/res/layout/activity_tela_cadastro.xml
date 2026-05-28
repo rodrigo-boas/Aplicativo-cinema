@@ -1,95 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background_red"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/red_white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".TelaCadastro">
 
     <ImageView
+        android:id="@+id/logo"
         android:layout_width="170dp"
         android:layout_height="170dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="Logo CineMatch"
         android:src="@drawable/logo_cinematch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <View
+    <androidx.cardview.widget.CardView
         android:id="@+id/cardPrincipal"
-        android:layout_width="350dp"
-        android:layout_height="250dp"
-        android:background="@drawable/background"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo">
 
-    <EditText
-        android:id="@+id/edtNome"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:inputType="textPersonName"
-        android:textColor="@color/black"
-        android:hint="Nome"
-        app:layout_constraintStart_toStartOf="@id/cardPrincipal"
-        app:layout_constraintEnd_toEndOf="@id/cardPrincipal"
-        app:layout_constraintTop_toTopOf="@id/cardPrincipal"
-        app:layout_constraintBottom_toTopOf="@id/edtEmail" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-    <EditText
-        android:id="@+id/edtEmail"
-        android:hint="Email"
-        android:textColor="@color/black"
-        android:inputType="textEmailAddress"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="@id/cardPrincipal"
-        app:layout_constraintEnd_toEndOf="@id/cardPrincipal"
-        app:layout_constraintTop_toBottomOf="@id/edtNome" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nome"
+                app:boxStrokeColor="#FF5757"
+                app:hintTextColor="#FF5757">
 
-    <EditText
-        android:id="@+id/edtSenha"
-        android:hint="Senha"
-        android:textColor="@color/black"
-        android:inputType="textPassword"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="@id/cardPrincipal"
-        app:layout_constraintEnd_toEndOf="@id/cardPrincipal"
-        app:layout_constraintTop_toBottomOf="@id/edtEmail" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtNome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/edtConfirmaSenha"
-        android:hint="Confirmar senha"
-        android:textColor="@color/black"
-        android:inputType="textPassword"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="@id/cardPrincipal"
-        app:layout_constraintEnd_toEndOf="@id/cardPrincipal"
-        app:layout_constraintTop_toBottomOf="@id/edtSenha" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btCadastrar"
-        android:layout_width="200dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="60dp"
-        android:textSize="22sp"
-        android:text="Criar conta"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        app:layout_constraintStart_toStartOf="@id/cardPrincipal"
-        app:layout_constraintEnd_toEndOf="@id/cardPrincipal"
-        app:layout_constraintTop_toBottomOf="@id/cardPrincipal" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Email"
+                app:boxStrokeColor="#FF5757"
+                app:hintTextColor="#FF5757">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Senha"
+                app:boxStrokeColor="#FF5757"
+                app:hintTextColor="#FF5757"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtSenha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Confirmar senha"
+                app:boxStrokeColor="#FF5757"
+                app:hintTextColor="#FF5757"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtConfirmaSenha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btCadastrar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@color/black"
+                android:text="Criar conta"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:cornerRadius="12dp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

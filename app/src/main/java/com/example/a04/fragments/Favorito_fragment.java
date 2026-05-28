@@ -83,6 +83,9 @@ public class Favorito_fragment extends Fragment {
                                     f.setData_lancamento((String) filme.get("data"));
                                     f.setDescricao((String) filme.get("descricao"));
                                     f.setPoster((String) filme.get("poster"));
+                                    if (filme.get("nota") != null) {
+                                        f.setAvaliacao(((Number) filme.get("nota")).doubleValue());
+                                    }
 
                                     filmes.add(f);
                                 }

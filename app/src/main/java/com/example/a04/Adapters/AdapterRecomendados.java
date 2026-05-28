@@ -1,6 +1,7 @@
 package com.example.a04.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.a04.FilmeDetalhes;
 import com.example.a04.R;
 import com.example.a04.api.Filme;
 
@@ -42,6 +44,19 @@ public class AdapterRecomendados extends RecyclerView.Adapter<AdapterRecomendado
 
         String image_url = "https://image.tmdb.org/t/p/w500" + filme.getPoster();
         Glide.with(context).load(image_url).into(holder.image_poster);
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), FilmeDetalhes.class);
+
+            intent.putExtra("titulo", filme.getTitulo());
+            intent.putExtra("descricao", filme.getDescricao());
+            intent.putExtra("poster", filme.getPoster());
+            intent.putExtra("nota", filme.getAvaliacao());
+            intent.putExtra("data", filme.getData_lancamento());
+
+            v.getContext().startActivity(intent);
+        });
+
     }
 
     @Override

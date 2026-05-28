@@ -264,11 +264,12 @@ public class Descobrir_fragment extends Fragment implements CardStackListener {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Map<String, Object> filmeMap = new HashMap<>();
-        filmeMap.put("id", SalvarFilme.getFilme_id());
+        filmeMap.put("id", (long) SalvarFilme.getFilme_id());
         filmeMap.put("titulo", SalvarFilme.getTitulo());
         filmeMap.put("data", SalvarFilme.getData_lancamento());
         filmeMap.put("descricao", SalvarFilme.getDescricao());
         filmeMap.put("poster", SalvarFilme.getPoster());
+        filmeMap.put("nota", SalvarFilme.getAvaliacao());
 
         Map<String, Object> dados = new HashMap<>();
         dados.put("lista", FieldValue.arrayUnion(filmeMap));

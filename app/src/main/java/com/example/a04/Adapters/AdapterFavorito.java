@@ -1,6 +1,7 @@
 package com.example.a04.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.a04.FilmeDetalhes;
 import com.example.a04.R;
 import com.example.a04.api.Filme;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,7 +53,7 @@ public class AdapterFavorito extends RecyclerView.Adapter<AdapterFavorito.FilmeV
 
         holder.text_title.setText(filme.getTitulo());
         holder.text_overview.setText(filme.getDescricao());
-        holder.text_info.setText(filme.getAnoLancamento());
+        holder.text_info.setText("Avaliação " + String.format("%.1f", filme.getAvaliacao()) + " | " + filme.getAnoLancamento());
 
         holder.button_delete.setOnClickListener(v -> {
             int posicao = holder.getBindingAdapterPosition();
@@ -64,6 +66,7 @@ public class AdapterFavorito extends RecyclerView.Adapter<AdapterFavorito.FilmeV
                 filmeMap.put("data", filmeDeletado.getData_lancamento());
                 filmeMap.put("descricao", filmeDeletado.getDescricao());
                 filmeMap.put("poster", filmeDeletado.getPoster());
+                filmeMap.put("nota", filmeDeletado.getAvaliacao());
 
                 Map<String, Object> deletar = new HashMap<>();
                 deletar.put("lista", FieldValue.arrayRemove(filmeMap));
@@ -85,7 +88,21 @@ public class AdapterFavorito extends RecyclerView.Adapter<AdapterFavorito.FilmeV
                     text_empty_favorites.setVisibility(View.VISIBLE);
                 }
 
+
+
             }
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), FilmeDetalhes.class);
+
+            intent.putExtra("titulo", filme.getTitulo());
+            intent.putExtra("descricao", filme.getDescricao());
+            intent.putExtra("poster", filme.getPoster());
+            intent.putExtra("nota", filme.getAvaliacao());
+            intent.putExtra("data", filme.getData_lancamento());
+
+            v.getContext().startActivity(intent);
         });
 
         String image_url = "https://image.tmdb.org/t/p/w500" + filme.getPoster();

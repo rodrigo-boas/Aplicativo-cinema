@@ -111,4 +111,8 @@ public class Filme {
     public void setData_lancamento(String data_lancamento) {
         this.data_lancamento = data_lancamento;
     }
+
+    public void setAvaliacao(double avaliacao) {
+        this.avaliacao = avaliacao;
+    }
 }

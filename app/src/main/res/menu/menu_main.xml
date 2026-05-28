@@ -6,12 +6,7 @@
     <item
         android:id="@+id/acaoLista"
         android:icon="@drawable/lista_icon"
-        android:title="Desejos"/>
-
-    <item
-        android:id="@+id/acaoRecomendados"
-        android:icon="@drawable/ic_recomendados"
-        android:title="Recomendados"/>
+        android:title="Favoritos"/>
 
     <item
         android:id="@+id/acaoDescobrir"
@@ -19,7 +14,7 @@
         android:title="Descobrir"/>
 
     <item
-        android:id="@+id/acaoPesquisar"
-        android:icon="@drawable/search_icon"
-        android:title="Pesquisar"/>
+        android:id="@+id/acaoRecomendados"
+        android:icon="@drawable/ic_recomendados"
+        android:title="Recomendados"/>
 </menu>

@@ -153,22 +153,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-
-        <!-- Play Button -->
-        <ImageButton
-            android:id="@+id/button_play"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/background_poster_itens"
-            android:padding="16dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_play"
-            app:layout_constraintBottom_toBottomOf="@+id/text_overview"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_overview"
-            app:tint="#FFFFFF" />
-
         <!-- Overlays for visual feedback -->
         <FrameLayout
             android:id="@+id/left_overlay"
