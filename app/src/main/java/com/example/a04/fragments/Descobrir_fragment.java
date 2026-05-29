@@ -26,6 +26,7 @@ import com.example.a04.api.FilmeApi;
 import com.example.a04.api.Results;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -90,6 +91,8 @@ public class Descobrir_fragment extends Fragment implements CardStackListener {
         api = retrofit.create(FilmeApi.class);
         filmes = new ArrayList<>();
 
+        atualizarContador();
+
         checarHistorico();
 
         progress = view.findViewById(R.id.progress);
@@ -114,6 +117,37 @@ public class Descobrir_fragment extends Fragment implements CardStackListener {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void atualizarContador() {
+        FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+        if (usuario == null) return;
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("Usuários")
+                .document(usuario.getUid())
+                .collection("historico")
+                .document("filmes")
+                .get().addOnCompleteListener(resultado -> {
+                    if (resultado.isSuccessful() && resultado.getResult() != null) {
+                        DocumentSnapshot documento = resultado.getResult();
+
+                        if (documento.exists()) {
+                            ArrayList<Object> vistos = (ArrayList<Object>) documento.get("vistos");
+
+                            if (vistos != null) {
+                                filmesAvaliados = vistos.size();
+
+                                textRatedCount.setText(filmesAvaliados + " filmes avaliados");
+                            } else {
+                                textRatedCount.setText("0 filmes avaliados");
+                            }
+                        } else {
+                            textRatedCount.setText("0 filmes avaliados");
+                        }
+                    }
+                });
     }
 
     private void checarHistorico() {
